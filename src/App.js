@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useEffect, useState, lazy } from "react";
+import Navbar from "./componentes/Navbar";
+import { Person } from "./componentes/Person";
+
+// fetch("https://swapi.dev/api/people/")
+//   .then((response) => response.json())
+//   .then((data) => console.log(data))
+//   .catch((error) => console.error(error));
 
 function App() {
+  const [peoples, setPeople] = useState([]);
+
+  const initialUrl = "https://swapi.dev/api/people/";
+
+  const StarWarsPerson = (url) => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => setPeople(data.results))
+      .catch((error) => console.log(error));
+  };
+
+  useEffect(() => {
+    StarWarsPerson(initialUrl);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar brand="Start Wart Fans" />
+      <div className="container mt-5">
+        <Person peoples={peoples} />
+      </div>
+    </>
   );
 }
 
