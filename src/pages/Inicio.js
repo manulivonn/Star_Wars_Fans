@@ -1,5 +1,6 @@
 import React from "react";
+import "../stylesheets/Inicio.css";
 
 export default function Inicio() {
-  return <div>Pagina de Inicio</div>;
+  return <div className="Container"></div>;
 }
